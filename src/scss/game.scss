@@ -1,0 +1,32 @@
+.main-grid, .sub-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+
+    aspect-ratio: 1 / 1;
+}
+
+.main-grid {
+    gap: 1rem;
+
+    background-color: #e9e9e9;
+}
+
+.sub-grid {
+    gap: .25rem;
+}
+
+.game button {
+    all: unset;
+
+    background-color: #0A0A0A;
+
+    display: grid;
+    place-items: center;
+    padding: .2em;
+
+    &:empty:hover {
+        background-color: #222;
+        cursor: pointer;
+    }
+}
