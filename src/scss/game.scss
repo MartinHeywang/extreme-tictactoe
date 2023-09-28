@@ -1,7 +1,22 @@
 .game {
+
+    padding-block: 3rem;
+
     display: grid;
     place-items: center;
     min-height: 100vh;
+}
+
+.next-player-indication {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+
+    font-size: 1.5rem;
+
+    img {
+        max-width: 1.5ch;
+    }
 }
 
 .main-grid, .sub-grid {
@@ -15,8 +30,8 @@
 .main-grid {
     gap: .75rem;
 
+    width: min(100%, 35em);
     background-color: #bbbbbb;
-    width: 80%;
 }
 
 .main-grid button {
@@ -65,5 +80,9 @@
 
     img {
         max-width: 60%;
+    }
+
+    &:hover {
+        opacity: .5;
     }
 }

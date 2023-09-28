@@ -31,6 +31,7 @@ let nextPlayerConstraints: Constraints | null = null;
 resetModel();
 
 const mainGrid = document.querySelector<HTMLDivElement>(".main-grid")!;
+const nextPlayerImage = document.getElementById("next-player-image") as HTMLImageElement;
 
 mainGrid.addEventListener("click", (evt) => {
     if (!((evt.target as any) instanceof HTMLButtonElement)) return;
@@ -99,6 +100,7 @@ mainGrid.addEventListener("click", (evt) => {
     button.appendChild(img);
 
     currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0;
+    nextPlayerImage.src = players[currentPlayerIndex].image;
 });
 
 type Coords = [number, number];
