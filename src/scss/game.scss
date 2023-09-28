@@ -36,6 +36,7 @@
 // quand subgrid est marqué playable et bouton est vide
 
 .sub-grid {
+    position: relative;
     gap: .15rem;
 
     &--playable button:empty {
@@ -47,4 +48,22 @@
 :is(.main-grid:not(.no-hover), .sub-grid--playable) button:empty:hover {
     filter: brightness(200%);
     cursor: pointer;
+}
+
+.sub-grid__winner {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    background-color: #0a0a0a;
+    aspect-ratio: 1 / 1;
+
+    display: grid;
+    place-items: center;
+
+    cursor: not-allowed;
+
+    img {
+        max-width: 60%;
+    }
 }

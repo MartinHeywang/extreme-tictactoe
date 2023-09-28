@@ -53,12 +53,24 @@ mainGrid.addEventListener("click", (evt) => {
 
     m.subgrids[x1][y1].cells[x2][y2] = players[currentPlayerIndex].value;
 
-    // lookForWinnerInSubgrid(m.subgrids[x1][y1], [x2, y2]);
-
     const oldSubgrid = mainGrid.querySelector(
         `.sub-grid[data-coord-x1='${x1}'][data-coord-y1='${y1}']`
-    );
-    oldSubgrid?.classList.remove("sub-grid--playable");
+    )!;
+    oldSubgrid.classList.remove("sub-grid--playable");
+
+    const winner = lookForWinnerInSubgrid(m.subgrids[x1][y1]);
+    if(winner !== "-") {
+        const div = document.createElement("div");
+        div.classList.add("sub-grid__winner");
+
+        const img = document.createElement("img");
+        img.src = winner === "x" ? cross : circle;
+
+        div.appendChild(img);
+        oldSubgrid.appendChild(div);
+    }
+
+    
 
     // the next player must play in the sub-grid indicated by the cell the current player chose
     // e.g the current plays in 0-0-2-1 -> the next player will be forced to play in 2-1-x2-y2
@@ -67,16 +79,17 @@ mainGrid.addEventListener("click", (evt) => {
     if (
         m.subgrids[nextPlayerConstraints.x1][nextPlayerConstraints.y1]
             .winner !== "-"
-    )
-        {nextPlayerConstraints = null; mainGrid.classList.remove("no-hover")}
+    ) {
+        nextPlayerConstraints = null;
+        mainGrid.classList.remove("no-hover");
+    }
 
     if (nextPlayerConstraints !== null) {
         const newSubgrid = mainGrid.querySelector(
             `.sub-grid[data-coord-x1='${nextPlayerConstraints.x1}'][data-coord-y1='${nextPlayerConstraints.y1}']`
-        );
-        newSubgrid?.classList.add("sub-grid--playable");
+        )!;
+        newSubgrid.classList.add("sub-grid--playable");
         mainGrid.classList.add("no-hover");
-        
     }
 
     const img = document.createElement("img");
@@ -88,9 +101,71 @@ mainGrid.addEventListener("click", (evt) => {
     currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0;
 });
 
-// function lookForWinnerInSubgrid(subgrid: Subgrid, [x2, y2]: [number, number]) {
-//     // info : to be done
-// }
+type Coords = [number, number];
+const winningLines: Tuple3<Coords>[] = [
+    [
+        [0, 0], // 0th vertical
+        [0, 1],
+        [0, 2]
+    ],
+    [
+        [1, 0], // 1st vertical
+        [1, 1],
+        [1, 2]
+    ],
+    [
+        [2, 0], // 2nd vertical
+        [2, 1],
+        [2, 2]
+    ],
+    [
+        [0, 0], // 0th horizontal
+        [1, 0],
+        [2, 0]
+    ],
+    [
+        [0, 1], // 1th horizontal
+        [1, 1],
+        [2, 1]
+    ],
+    [
+        [0, 2], // 2th horizontal
+        [1, 2],
+        [2, 2]
+    ],
+    [
+        [0, 0], // diagonal (direction : \)
+        [1, 1],
+        [2, 2]
+    ],
+    [
+        [0, 2], // diagonal (direction : /)
+        [1, 1],
+        [2, 0]
+    ]
+];
+
+function lookForWinnerInSubgrid(subgrid: Subgrid) {
+    const cells = subgrid.cells;
+
+    const winner = winningLines.reduce((prev: Values, line) => {
+        if(prev !== "-") return prev; // a previous line has already made someone win the subgrid
+
+        // check si le premier symbole est le même que le deuxième et que le premier est le même que le troisième
+        // = les trois cases de la ligne ont le même symbole
+        const sameSymbol =
+            cells[line[0][0]][line[0][1]] === cells[line[1][0]][line[1][1]] &&
+            cells[line[0][0]][line[0][1]] === cells[line[2][0]][line[2][1]];
+
+        // retourne le symbole vérifié en question si la ligne est complète, sinon '-' pour pas de gagnant
+        return sameSymbol ? cells[line[0][0]][line[0][1]] : "-";
+    }, "-");
+
+    console.log(`Winner ? '${winner}'`)
+
+    subgrid.winner = winner;
+    return winner;
+}
 
 function resetModel() {
     // initialize all cells with '-' meaning empty
