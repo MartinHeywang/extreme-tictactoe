@@ -14,7 +14,21 @@
         <link rel="stylesheet" href="./src/scss/main.scss" />
 
         <script type="module" src="/src/ts/main.ts" defer></script>
+
         <title>Extreme TicTacToe &bull; Play now !</title>
+        <meta
+            name="description"
+            content="Si tu en as marre de jouer au morpion, tu vas adorer ce méga-morpion !"
+        />
+        <meta property="og:title" content="Extreme TicTacToe" />
+        <meta property="og:type" content="game" />
+        <meta property="og:url" content="http://martinheywang.github.io/extreme-tictactoe" />
+        <meta
+            property="og:image"
+            content="/icon.svg"
+        />
+        <meta property="og:description" content="Si tu en as marre de jouer au morpion, tu vas adorer ce méga-morpion !" />
+        <meta name="theme-color" content="#0a0a0a" />
     </head>
     <body>
         <div class="game">
@@ -524,7 +538,10 @@
                     ></button>
                 </div>
             </div>
-            <p class="next-player-indication">C'est à <img id="next-player-image" src="./src/cross.svg" /> de jouer&nbsp;!</p>
+            <p class="next-player-indication">
+                C'est à <img id="next-player-image" src="./src/cross.svg" /> de
+                jouer&nbsp;!
+            </p>
         </div>
     </body>
 </html>
