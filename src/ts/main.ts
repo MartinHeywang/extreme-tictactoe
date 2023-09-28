@@ -32,7 +32,7 @@ resetModel();
 
 const mainGrid = document.querySelector<HTMLDivElement>(".main-grid")!;
 
-mainGrid.addEventListener("click", evt => {
+mainGrid.addEventListener("click", (evt) => {
     if (!((evt.target as any) instanceof HTMLButtonElement)) return;
 
     const button = evt.target as HTMLButtonElement;
@@ -44,18 +44,39 @@ mainGrid.addEventListener("click", evt => {
     };
     const { coordX1: x1, coordY1: y1, coordX2: x2, coordY2: y2 } = dataset;
 
-    if(nextPlayerConstraints !== null && (x1 === nextPlayerConstraints.x1 || y1 === nextPlayerConstraints.y1)) return;
+    if (
+        nextPlayerConstraints !== null &&
+        (x1 !== nextPlayerConstraints.x1 || y1 !== nextPlayerConstraints.y1)
+    )
+        return;
     if (m.subgrids[x1][y1].cells[x2][y2] !== "-") return;
 
     m.subgrids[x1][y1].cells[x2][y2] = players[currentPlayerIndex].value;
 
     // lookForWinnerInSubgrid(m.subgrids[x1][y1], [x2, y2]);
 
+    const oldSubgrid = mainGrid.querySelector(
+        `.sub-grid[data-coord-x1='${x1}'][data-coord-y1='${y1}']`
+    );
+    oldSubgrid?.classList.remove("sub-grid--playable");
+
     // the next player must play in the sub-grid indicated by the cell the current player chose
     // e.g the current plays in 0-0-2-1 -> the next player will be forced to play in 2-1-x2-y2
-    nextPlayerConstraints = { x1: x2, y1: y2 }
+    nextPlayerConstraints = { x1: x2, y1: y2 };
     // but if there is already a winner in the indicated sub-grid, then the next player can play anywhere
-    if(m.subgrids[x2][y2].winner !== "-") nextPlayerConstraints = null;
+    if (
+        m.subgrids[nextPlayerConstraints.x1][nextPlayerConstraints.y1]
+            .winner !== "-"
+    )
+        nextPlayerConstraints = null;
+
+    if (nextPlayerConstraints !== null) {
+        const newSubgrid = mainGrid.querySelector(
+            `.sub-grid[data-coord-x1='${nextPlayerConstraints.x1}'][data-coord-y1='${nextPlayerConstraints.y1}']`
+        );
+        console.log(newSubgrid)
+        newSubgrid?.classList.add("sub-grid--playable");
+    }
 
     const img = document.createElement("img");
     img.src = players[currentPlayerIndex].image;
