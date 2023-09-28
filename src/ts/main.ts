@@ -68,14 +68,15 @@ mainGrid.addEventListener("click", (evt) => {
         m.subgrids[nextPlayerConstraints.x1][nextPlayerConstraints.y1]
             .winner !== "-"
     )
-        nextPlayerConstraints = null;
+        {nextPlayerConstraints = null; mainGrid.classList.remove("no-hover")}
 
     if (nextPlayerConstraints !== null) {
         const newSubgrid = mainGrid.querySelector(
             `.sub-grid[data-coord-x1='${nextPlayerConstraints.x1}'][data-coord-y1='${nextPlayerConstraints.y1}']`
         );
-        console.log(newSubgrid)
         newSubgrid?.classList.add("sub-grid--playable");
+        mainGrid.classList.add("no-hover");
+        
     }
 
     const img = document.createElement("img");

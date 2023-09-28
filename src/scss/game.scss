@@ -28,17 +28,23 @@
     place-items: center;
     padding: .4em;
 
-    &:empty:hover {
-        background-color: #222;
-        cursor: pointer;
-    }
+    cursor: not-allowed;
 }
+
+// button doit être :hover able
+// quand main-grid n'a pas no-hover et bouton est vide
+// quand subgrid est marqué playable et bouton est vide
 
 .sub-grid {
     gap: .15rem;
 
-    &--playable button {
+    &--playable button:empty {
         // outline: 2px solid yellowgreen;
-        background-color: #282828;
+        background-color: #222;
     }
+}
+
+:is(.main-grid:not(.no-hover), .sub-grid--playable) button:empty:hover {
+    filter: brightness(200%);
+    cursor: pointer;
 }
