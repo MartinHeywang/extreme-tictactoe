@@ -90,3 +90,14 @@
         opacity: .5;
     }
 }
+
+#new-game-btn {
+    font: inherit;
+    font-size: 1.2rem;
+    color: inherit;
+
+    background-color: #333;
+    border: none;
+    border-radius: .1em;
+    padding: .2em .6em;
+}
