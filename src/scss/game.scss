@@ -28,7 +28,7 @@
 }
 
 .main-grid {
-    gap: .75rem;
+    gap: clamp(5px, 2.1vw, 14px);
 
     width: min(100%, 35em);
     background-color: #bbbbbb;
@@ -41,7 +41,7 @@
 
     display: grid;
     place-items: center;
-    padding: .4em;
+    padding: clamp(.1em, 1vw,.4em);
 
     cursor: not-allowed;
 }
@@ -52,7 +52,7 @@
 
 .sub-grid {
     position: relative;
-    gap: .15rem;
+    gap: clamp(1px, .6vw, 4px);
 
     &--playable button:empty {
         // outline: 2px solid yellowgreen;
@@ -67,8 +67,12 @@
 
 .sub-grid__winner {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     z-index: 2;
+    width: 100%;
 
     background-color: #0a0a0a;
     aspect-ratio: 1 / 1;
