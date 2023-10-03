@@ -1,0 +1,11 @@
+<svg viewBox="0 0 200 200" fill="dodgerblue" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_1_2)">
+        <path d="M40 0L0 40L160 200L200 160L40 0Z" />
+        <path d="M0 160L40 200L200 40L160 0L0 160Z" />
+    </g>
+    <defs>
+        <clipPath id="clip0_1_2">
+            <rect width="200" height="200" fill="white" />
+        </clipPath>
+    </defs>
+</svg>
